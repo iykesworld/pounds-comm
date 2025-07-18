@@ -1,0 +1,8 @@
+{
+  "cursor.experimental.commandExecutionTimeout": 15000,
+  "cursor.experimental.autoRunMaxStdoutLength": 10000,
+  "cursor.experimental.yoloMode": false,
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "terminal.integrated.defaultProfile.osx": "bash",
+  "terminal.integrated.defaultProfile.linux": "bash"
+} 
