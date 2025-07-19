@@ -4,12 +4,5 @@
   "cursor.experimental.yoloMode": false,
   "terminal.integrated.defaultProfile.windows": "Command Prompt",
   "terminal.integrated.defaultProfile.osx": "bash",
-  "terminal.integrated.defaultProfile.linux": "bash",
-  "terminal.integrated.enablePersistentSessions": false,
-  "terminal.integrated.persistentSessionReviveProcess": "never",
-  "terminal.integrated.shellIntegration.enabled": false,
-  "git.confirmSync": false,
-  "git.autofetch": false,
-  "git.enableSmartCommit": true,
-  "git.confirmSync": false
+  "terminal.integrated.defaultProfile.linux": "bash"
 } 
