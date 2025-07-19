@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 const api = axios.create({
   baseURL: API_URL,
+  timeout: 10000, // 10 second timeout
 });
 
 api.interceptors.request.use((config) => {
@@ -15,6 +16,21 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// Add response interceptor for better error handling
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('API Error:', error);
+    if (error.code === 'ECONNABORTED') {
+      return Promise.reject(new Error('Request timeout - server may be down'));
+    }
+    if (!error.response) {
+      return Promise.reject(new Error('Network error - please check your connection'));
+    }
+    return Promise.reject(error);
+  }
+);
 
 // Auth
 export const register = (data: { name: string; email: string; password: string }) =>
@@ -46,8 +62,10 @@ export const deleteProduct = (id: string) =>
 export const getProduct = (slug: string) =>
   api.get(`/products/${slug}`);
 
-export const getAllProducts = () =>
-  api.get('/products');
+export const getAllProducts = () => {
+  console.log('API: Fetching all products from:', `${API_URL}/products`);
+  return api.get('/products');
+};
 
 export const getByCategory = (category: string) =>
   api.get(`/products/categories/${category}`);
