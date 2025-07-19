@@ -73,12 +73,13 @@ try {
 }
 
 // 404 handler
-app.use('*', (req, res) => {
+app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: 'Route not found'
   });
 });
+
 
 // Error handler
 app.use(errorHandler);
