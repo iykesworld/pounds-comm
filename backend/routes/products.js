@@ -7,6 +7,12 @@ const upload = require('../middleware/upload');
 
 const router = express.Router();
 
+// Get all products (must come before parameterized routes)
+router.get('/', getAllProducts);
+
+// Filter by category (must come before /:slug)
+router.get('/categories/:category', getByCategory);
+
 // Create product
 router.post('/', auth, admin, upload, [
   body('name').notEmpty(),
@@ -28,13 +34,7 @@ router.put('/:id', auth, admin, upload, [
 // Delete product
 router.delete('/:id', auth, admin, deleteProduct);
 
-// Get single product
+// Get single product (must come last)
 router.get('/:slug', getProduct);
-
-// Get all products
-router.get('/', getAllProducts);
-
-// Filter by category
-router.get('/categories/:category', getByCategory);
 
 module.exports = router; 

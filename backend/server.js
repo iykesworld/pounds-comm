@@ -61,11 +61,16 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API routes
-app.use('/api/auth', authRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/search', searchRoutes);
+// API routes with error handling
+try {
+  app.use('/api/auth', authRoutes);
+  app.use('/api/products', productRoutes);
+  app.use('/api/orders', orderRoutes);
+  app.use('/api/search', searchRoutes);
+} catch (error) {
+  console.error('Error setting up routes:', error);
+  process.exit(1);
+}
 
 // 404 handler
 app.use('*', (req, res) => {
