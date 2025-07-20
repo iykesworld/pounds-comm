@@ -7,12 +7,12 @@ const morgan = require('morgan');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 
-const authRoutes = require('./routes/auth');
-const productRoutes = require('./routes/products');
-const orderRoutes = require('./routes/orders');
-const searchRoutes = require('./routes/search');
+// Import centralized router
+const apiRouter = require('./routes');
 
 const app = express();
+
+console.log('🚀 Initializing Pounds Communication Ltd Backend...');
 
 // Enhanced security with Helmet
 app.use(helmet({
@@ -29,8 +29,8 @@ app.use(helmet({
 
 // CORS configuration for production
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production' 
-    ? [process.env.FRONTEND_URL, 'https://your-frontend-domain.com'] 
+  origin: process.env.NODE_ENV === 'production'
+    ? [process.env.FRONTEND_URL, 'https://your-frontend-domain.com']
     : ['http://localhost:3000', 'http://localhost:3001'],
   credentials: true,
   optionsSuccessStatus: 200
@@ -51,45 +51,48 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Health check endpoint
+// Root health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({
     status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    message: 'Pounds Communication Ltd Backend is running'
   });
 });
 
-// API routes with error handling
+// API routes with error handling and debug logging
 try {
-  app.use('/api/auth', authRoutes);
-  app.use('/api/products', productRoutes);
-  app.use('/api/orders', orderRoutes);
-  app.use('/api/search', searchRoutes);
+  console.log('📡 Setting up API routes...');
+  app.use('/api', apiRouter);
+  console.log('✅ API routes mounted successfully');
 } catch (error) {
-  console.error('Error setting up routes:', error);
+  console.error('❌ Error setting up API routes:', error);
   process.exit(1);
 }
 
-// 404 handler
-app.use((req, res) => {
+// 404 handler for non-API routes
+app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
-    message: 'Route not found'
+    message: 'Route not found',
+    path: req.originalUrl
   });
 });
-
 
 // Error handler
 app.use(errorHandler);
 
 // Connect to MongoDB
+console.log('🗄️ Connecting to database...');
 connectDB();
 
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
   console.log(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+  console.log(`📊 Health check: http://localhost:${PORT}/health`);
+  console.log(`🔗 API base: http://localhost:${PORT}/api`);
 });
 
 // Graceful shutdown
