@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "start:simple": "node server-simple.js",
-    "dev": "nodemon server.js",
-    "postinstall": "npm audit fix"
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
