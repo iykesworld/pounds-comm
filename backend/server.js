@@ -30,7 +30,7 @@ app.use(helmet({
 // CORS configuration for production
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production'
-    ? [process.env.FRONTEND_URL, 'https://your-frontend-domain.com']
+    ? [process.env.FRONTEND_URL, 'https://pounds-communication.com']
     : ['http://localhost:3000', 'http://localhost:3001'],
   credentials: true,
   optionsSuccessStatus: 200
