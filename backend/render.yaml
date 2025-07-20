@@ -3,10 +3,12 @@ services:
     name: pounds-comm-backend
     env: node
     plan: free
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: |
+      rm -rf node_modules package-lock.json
+      npm install
+    startCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production
-      - key: NODE_VERSION
-        value: 18.20.4 
+      - key: PORT
+        value: 5000 

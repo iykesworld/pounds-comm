@@ -7,8 +7,11 @@ const morgan = require('morgan');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 
-// Import centralized router
-const apiRouter = require('./routes');
+// Import individual route files
+const authRoutes = require('./routes/auth');
+const productRoutes = require('./routes/products');
+const orderRoutes = require('./routes/orders');
+const searchRoutes = require('./routes/search');
 
 const app = express();
 
@@ -65,7 +68,13 @@ app.get('/health', (req, res) => {
 // API routes with error handling and debug logging
 try {
   console.log('📡 Setting up API routes...');
-  app.use('/api', apiRouter);
+
+  // Mount individual route files directly
+  app.use('/api/auth', authRoutes);
+  app.use('/api/products', productRoutes);
+  app.use('/api/orders', orderRoutes);
+  app.use('/api/search', searchRoutes);
+
   console.log('✅ API routes mounted successfully');
 } catch (error) {
   console.error('❌ Error setting up API routes:', error);

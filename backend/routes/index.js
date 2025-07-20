@@ -4,6 +4,7 @@ const productRoutes = require('./products');
 const orderRoutes = require('./orders');
 const searchRoutes = require('./search');
 
+
 const router = express.Router();
 
 // Health check endpoint
