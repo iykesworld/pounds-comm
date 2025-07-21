@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm install --no-cache",
     "start": "node server.js",
     "start:simple": "node server-simple.js",
     "dev": "nodemon server.js"
