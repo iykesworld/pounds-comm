@@ -66,13 +66,13 @@ export default function CheckoutPage() {
           {items.map((item) => (
             <li key={item.productId} className="flex justify-between mb-2">
               <span>{item.name} x {item.quantity}</span>
-              <span>${(item.price * item.quantity).toFixed(2)}</span>
+              <span>NGN{(item.price * item.quantity).toFixed(2)}</span>
             </li>
           ))}
         </ul>
         <div className="flex justify-between font-bold text-lg">
           <span>Total:</span>
-          <span>${totalPrice.toFixed(2)}</span>
+          <span>NGN{totalPrice.toFixed(2)}</span>
         </div>
       </div>
     </div>

@@ -55,9 +55,8 @@ export default function OrderSummary({ order, isRecent = false }: OrderSummaryPr
   });
 
   return (
-    <div className={`bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border-2 transition-all duration-200 hover:shadow-xl ${
-      isRecent ? 'border-green-200 dark:border-green-800' : 'border-gray-200 dark:border-gray-800'
-    }`}>
+    <div className={`bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border-2 transition-all duration-200 hover:shadow-xl ${isRecent ? 'border-green-200 dark:border-green-800' : 'border-gray-200 dark:border-gray-800'
+      }`}>
       {isRecent && (
         <div className="mb-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
           <div className="flex items-center">
@@ -82,7 +81,7 @@ export default function OrderSummary({ order, isRecent = false }: OrderSummaryPr
               {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
             </span>
           </div>
-          
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-600 dark:text-gray-400">
             <div>
               <span className="font-semibold">Date:</span> {orderDate}
@@ -97,7 +96,7 @@ export default function OrderSummary({ order, isRecent = false }: OrderSummaryPr
               <span className="font-semibold">Phone:</span> {order.phone}
             </div>
           </div>
-          
+
           <div className="mt-3">
             <span className="font-semibold text-gray-700 dark:text-gray-300">Address:</span>
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{order.address}</p>
@@ -107,7 +106,7 @@ export default function OrderSummary({ order, isRecent = false }: OrderSummaryPr
         <div className="flex flex-col items-end gap-2">
           <div className="text-right">
             <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-              ${order.totalPrice.toFixed(2)}
+              NGN{order.totalPrice.toFixed(2)}
             </div>
             <div className="text-sm text-gray-500 dark:text-gray-400">Total Amount</div>
           </div>
